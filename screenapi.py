@@ -217,26 +217,43 @@ MAP = [
 
 class ScreenApi:
 
-    def __init__(self):
-        self.client = opc.Client('localhost:7890')
+    def __init__(self, server_addr='localhost:7890', mock=False):
+        global pygame
+        self.mock = mock
+        if mock:
+            import pygame
+            pygame.init()
+            self.screen = pygame.display.set_mode((640, 480))
+
+
+        else:
+            self.client = opc.Client(server_addr)
         self.leds =[ (0,0,0) ] * numLEDs
         self.led_map = MAP
 
     def draw(self, pixels):
-        for x in range(len(pixels)):
-            for y in range(len(pixels[0])):
-                try:
-                    led_list = self.led_map[x][y]
-                    # if (pixels[x][y] != (0,0,0)):
-                        # print("led list is %s" % str(led_list))
-                    for led in led_list:
-                        self.leds[led] = pixels[x][y]
-                except:
-                    pass
-        self.client.put_pixels(self.leds)
+        if self.mock:
+            for x in range(13):
+                for y in range(12):
+                    pygame.draw.rect(self.screen, (255,255,255),(x*30,y*30,30,30), 1)
+            for x in range(len(pixels)):
+                for y in range(len(pixels[0])):
+                    pygame.draw.rect(self.screen, pixels[x][y], (y * 30 + 2,x * 30 + 2,26,26), 0)
+            pygame.display.flip()
+
+        else:
+            for x in range(len(pixels)):
+                for y in range(len(pixels[0])):
+                    try:
+                        led_list = self.led_map[x][y]
+                        for led in led_list:
+                            self.leds[led] = pixels[x][y]
+                    except:
+                        pass
+            self.client.put_pixels(self.leds)
 
 if __name__ == '__main__':
-    api = ScreenApi()
+    api = ScreenApi(mock=True)
     # time.sleep(20)
     # screen = [[(255,0,0) for x in range(13)] for y in range(12)]
     # api.draw(screen)
