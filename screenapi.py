@@ -227,8 +227,8 @@ class ScreenApi:
             for y in range(len(pixels[0])):
                 try:
                     led_list = self.led_map[x][y]
-                    if (pixels[x][y] != (0,0,0)):
-                        print("led list is %s" % str(led_list))
+                    # if (pixels[x][y] != (0,0,0)):
+                        # print("led list is %s" % str(led_list))
                     for led in led_list:
                         self.leds[led] = pixels[x][y]
                 except:
@@ -244,14 +244,16 @@ if __name__ == '__main__':
     # screen = [[(0,0,0) for x in range(13)] for y in range(12)]
     # api.draw(screen)
     # time.sleep(2)
-    for r in range(12):
-        for c in range(13):
-            screen = [[(0,0,0) for x in range(13)] for y in range(12)]
-            screen[r][c] = (255,255,255)
-            # print(screen)
-            api.draw(screen)
-            i = raw_input()
-            # time.sleep(.04)
+    while True:
+        for r in range(12):
+            for c in range(13):
+                screen = [[(0,0,0) for x in range(13)] for y in range(12)]
+                screen[r][c] = (255,255,255)
+                print("screen[%d][%d]" % (r,c))
+                # print(screen)
+                api.draw(screen)
+                i = raw_input()
+                # time.sleep(.03)
 
-            # import pdb; pdb.set_trace()
+                # import pdb; pdb.set_trace()
 
