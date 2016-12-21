@@ -235,15 +235,23 @@ class ScreenApi:
                     pass
         self.client.put_pixels(self.leds)
 
-api = ScreenApi()
-for r in range(12):
-    for c in range(13):
-        screen = [[(0,0,0) for x in range(13)] for y in range(12)]
-        screen[r][c] = (255,255,255)
-        # print(screen)
-        api.draw(screen)
-        i = raw_input()
-        # time.sleep(.5)
+if __name__ == '__main__':
+    api = ScreenApi()
+    # time.sleep(20)
+    # screen = [[(255,0,0) for x in range(13)] for y in range(12)]
+    # api.draw(screen)
+    # time.sleep(2)
+    # screen = [[(0,0,0) for x in range(13)] for y in range(12)]
+    # api.draw(screen)
+    # time.sleep(2)
+    for r in range(12):
+        for c in range(13):
+            screen = [[(0,0,0) for x in range(13)] for y in range(12)]
+            screen[r][c] = (255,255,255)
+            # print(screen)
+            api.draw(screen)
+            i = raw_input()
+            # time.sleep(.04)
 
-        # import pdb; pdb.set_trace()
+            # import pdb; pdb.set_trace()
 
