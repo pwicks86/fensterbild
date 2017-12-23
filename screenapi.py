@@ -1,6 +1,7 @@
 # Open Pixel Control client: All lights to solid white
 
 import opc
+import pygame
 
 numLEDs = 512 * 3
 MAP = [
@@ -248,17 +249,3 @@ class ScreenApi:
                     except:
                         pass
             self.client.put_pixels(self.leds)
-
-
-if __name__ == '__main__':
-
-    api = ScreenApi(mock=True)
-
-    while True:
-        for r in range(12):
-            for c in range(13):
-                screen = [[(0, 0, 0) for x in range(13)] for y in range(12)]
-                screen[r][c] = (255, 255, 255)
-                print("screen[%d][%d]" % (r, c))
-                api.draw(screen)
-                i = input()
