@@ -2,6 +2,7 @@ from screenapi import ScreenApi
 import time
 import math
 import random
+import argparse
 
 width = 13
 height = 12
@@ -102,9 +103,22 @@ def confetti():
 
 if __name__ == '__main__':
 
+    parser = argparse.ArgumentParser(description='Control the pretty lights.')
+    parser.add_argument('design', default='default', help='Options: confetti')
+
+    args = parser.parse_args()
+
+    design = []
+    if args.design == 'confetti':
+        design = confetti()
+    elif args.design == default:
+        design == default(white)
+    else:
+        design = default(white)
+
     api = ScreenApi(mock=True)
 
     while True:
-        for i in confetti():
+        for i in design:
             api.draw(i)
             time.sleep(0.1)
