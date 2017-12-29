@@ -18,13 +18,12 @@ blue = (0, 0, 255)
 purple = (255, 0, 255)
 rainbow = [red, orange, yellow, green, blue, purple]
 
-pastel_red = (255, 150, 150)
-pastel_orange = (255, 165, 150)
-pastel_yellow = (255, 255, 150)
-pastel_green = (150, 255, 150)
-pastel_blue = (150, 150, 255)
-pastel_purple = (255, 150, 255)
-pastels = [pastel_red, pastel_orange, pastel_yellow, pastel_green,
+pastel_red = (255, 200, 200)
+pastel_yellow = (255, 255, 200)
+pastel_green = (200, 255, 200)
+pastel_blue = (200, 200, 255)
+pastel_purple = (255, 200, 255)
+pastels = [pastel_red, pastel_yellow, pastel_green,
            pastel_blue, pastel_purple]
 
 
@@ -47,19 +46,8 @@ def pastel_gradient(frame):
     screen = whole_screen(black)
     for x in range(height):
         for y in range(width):
-            index = (math.floor((x + y) / 2) + frame) % 6
-            if index == 0:
-                screen[x][y] = pastel_red
-            elif index == 1:
-                screen[x][y] = pastel_orange
-            elif index == 2:
-                screen[x][y] = pastel_yellow
-            elif index == 3:
-                screen[x][y] = pastel_green
-            elif index == 4:
-                screen[x][y] = pastel_blue
-            elif index == 5:
-                screen[x][y] = pastel_purple
+            index = (math.floor((x + y) / 2) + frame) % len(pastels)
+            screen[x][y] = pastels[index]
     return screen
 
 
@@ -67,7 +55,7 @@ def pastel_random():
     screen = whole_screen(black)
     for x in range(height):
         for y in range(width):
-            screen[x][y] = pastels[random.randint(0, 5)]
+            screen[x][y] = pastels[random.randint(0, len(pastels) - 1)]
     return screen
 
 
@@ -112,7 +100,7 @@ if __name__ == '__main__':
     if args.design == 'confetti':
         design = confetti()
     elif args.design == default:
-        design == default(white)
+        design = default(white)
     else:
         design = default(white)
 
