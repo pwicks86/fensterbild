@@ -91,20 +91,24 @@ def confetti():
 
 if __name__ == '__main__':
 
-    parser = argparse.ArgumentParser(description='Control the pretty lights.')
-    parser.add_argument('design', default='default', help='Options: confetti')
+    parser = argparse.ArgumentParser(
+        description='This is some code to run the LEDs in an office window. ')
+    parser.add_argument('design', default='default',
+                        help='Options: default, confetti')
+    parser.add_argument('--game', action='store_true',
+                        help='Run with pygame instead of fadecandy')
 
     args = parser.parse_args()
 
     design = []
     if args.design == 'confetti':
         design = confetti()
-    elif args.design == default:
+    elif args.design == 'default':
         design = default(white)
     else:
         design = default(white)
 
-    api = ScreenApi(mock=True)
+    api = ScreenApi(mock=args.game)
 
     while True:
         for i in design:
