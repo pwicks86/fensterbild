@@ -95,6 +95,8 @@ if __name__ == '__main__':
         description='This is some code to run the LEDs in an office window. ')
     parser.add_argument('design', default='default',
                         help='Options: default, confetti')
+    parser.add_argument('-s', type=float, default=0,
+                        help='Time to spend on each frame (in seconds)')
     parser.add_argument('--game', action='store_true',
                         help='Run with pygame instead of fadecandy')
 
@@ -113,4 +115,4 @@ if __name__ == '__main__':
     while True:
         for i in design:
             api.draw(i)
-            time.sleep(0.1)
+            time.sleep(args.s)
